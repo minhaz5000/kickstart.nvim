@@ -319,7 +319,6 @@ require('lazy').setup({
         ['<leader>a'] = { name = '[A]utoformat', _ = 'which_key_ignore' },
         ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
         ['<leader>h'] = { name = 'Git [H]unk', _ = 'which_key_ignore' },
-
       }
       -- visual mode
       require('which-key').register({
@@ -700,6 +699,13 @@ require('lazy').setup({
       local luasnip = require 'luasnip'
       local types = require "luasnip.util.types"
 
+      -- Autosnippets undo fix
+      local auto_expand = luasnip.expand_auto
+      luasnip.expand_auto = function(...)
+        vim.o.undolevels = vim.o.undolevels
+        auto_expand(...)
+      end
+
       -- Load LuaSnip snippets
       require("luasnip.loaders.from_lua").lazy_load({paths = "~/.config/nvim/LuaSnip/"})
 
@@ -709,7 +715,7 @@ require('lazy').setup({
         -- Allow autotrigger snippets
         enable_autosnippets = true,
         -- This one is cool cause if you have dynamic snippets, it updates as you type!
-        updateevents = "TextChanged,TextChangedI",
+        update_events = { 'TextChanged', 'TextChangedI' },
         -- For equivalent of UltiSnips visual selection
         store_selection_keys = "<Tab>",
         -- Event on which to check for exiting a snippet's region
@@ -806,6 +812,7 @@ require('lazy').setup({
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
       vim.cmd.colorscheme 'tokyonight-storm'
+
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
     end,
@@ -847,7 +854,6 @@ require('lazy').setup({
         return '%2l:%-2v'
       end
 
-
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,
@@ -858,7 +864,7 @@ require('lazy').setup({
     opts = {
       ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc' },
       -- Autoinstall languages that are not installed
-      auto_install = false,
+      auto_install = true,
       highlight = {
         enable = true,
         -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
