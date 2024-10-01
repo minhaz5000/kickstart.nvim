@@ -102,7 +102,7 @@ vim.g.have_nerd_font = true
 vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
-vim.opt.relativenumber = true
+-- vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -181,14 +181,11 @@ vim.keymap.set('n', '<M-j>', ':m .+1<CR>==', { noremap = true, silent = true })
 vim.keymap.set('n', '<M-k>', ':m .-2<CR>==', { noremap = true, silent = true })
 
 -- Move selected lines up and down
-vim.keymap.set('x', '<M-j>', ':move \'>+<CR>gv=gv', { noremap = true, silent = true })
-vim.keymap.set('x', '<M-k>', ':move \'<-2<CR>gv=gv', { noremap = true, silent = true })
+vim.keymap.set('x', '<M-j>', ":move '>+<CR>gv=gv", { noremap = true, silent = true })
+vim.keymap.set('x', '<M-k>', ":move '<-2<CR>gv=gv", { noremap = true, silent = true })
 
 -- easy save file
 vim.keymap.set('n', '<C-s>', ':w<CR>')
-
--- use U for redo :))
-vim.keymap.set('n', 'U', '<C-r>', {})
 
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -351,6 +348,7 @@ require('lazy').setup({
         { '<leader>w', group = '[W]orkspace' },
         { '<leader>t', group = '[T]oggle' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+        { '<leader>a', group = '[A]utoformat Settings' },
       },
     },
   },
@@ -736,7 +734,7 @@ require('lazy').setup({
       -- See `:help cmp`
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
-      local types = require "luasnip.util.types"
+      local types = require 'luasnip.util.types'
 
       -- Autosnippets undo fix
       local auto_expand = luasnip.expand_auto
@@ -746,9 +744,14 @@ require('lazy').setup({
       end
 
       -- Load LuaSnip snippets
-      require("luasnip.loaders.from_lua").lazy_load({paths = "~/.config/nvim/LuaSnip/"})
+      require('luasnip.loaders.from_lua').lazy_load { paths = '~/.config/nvim/LuaSnip/' }
 
-      vim.keymap.set('', '<Leader>U', '<Cmd>lua require("luasnip.loaders.from_lua").lazy_load({paths = "~/.config/nvim/LuaSnip/"})<CR><Cmd>echo "Snippets refreshed!"<CR>', { desc = "[U]pdate Snippets"})
+      vim.keymap.set(
+        '',
+        '<Leader>U',
+        '<Cmd>lua require("luasnip.loaders.from_lua").lazy_load({paths = "~/.config/nvim/LuaSnip/"})<CR><Cmd>echo "Snippets refreshed!"<CR>',
+        { desc = '[U]pdate Snippets' }
+      )
 
       luasnip.config.setup {
         -- Allow autotrigger snippets
@@ -756,14 +759,14 @@ require('lazy').setup({
         -- This one is cool cause if you have dynamic snippets, it updates as you type!
         update_events = { 'TextChanged', 'TextChangedI' },
         -- For equivalent of UltiSnips visual selection
-        store_selection_keys = "<Tab>",
+        store_selection_keys = '<Tab>',
         -- Event on which to check for exiting a snippet's region
         region_check_events = 'InsertEnter',
         delete_check_events = 'InsertLeave',
         ext_opts = {
           [types.choiceNode] = {
             active = {
-              virt_text = { { " « ", "NonTest" } },
+              virt_text = { { ' « ', 'NonTest' } },
             },
           },
         },

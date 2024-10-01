@@ -1,15 +1,14 @@
-local helpers = require('personal.luasnip-helper-funcs')
+local helpers = require 'personal.luasnip-helper-funcs'
 local get_visual = helpers.get_visual
 
-local line_begin = require("luasnip.extras.expand_conditions").line_begin
+local line_begin = require('luasnip.extras.expand_conditions').line_begin
 
-return
-{
+return {
   -- -- PRINTF
   -- s({trig = "pp", snippetType="autosnippet"},
   --   fmta(
   --   [[]],
-  --   { 
+  --   {
   --       i(1),
   --       i(2)
   --   }
@@ -17,9 +16,10 @@ return
   --   { condition = line_begin }
   --   ),
   -- GETLINE BOILERPLATE
-  s({trig = "gll", snippetType="autosnippet"},
+  s(
+    { trig = 'gll', snippetType = 'autosnippet' },
     fmta(
-    [[
+      [[
     char *line = NULL;
     size_t len = 0;
     ssize_t nread;
@@ -27,7 +27,7 @@ return
     <>
     free(line);
     ]],
-    { i(0) }
+      { i(0) }
     )
-    ),
+  ),
 }

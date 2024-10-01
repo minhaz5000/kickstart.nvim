@@ -1,80 +1,68 @@
-local helpers = require('personal.luasnip-helper-funcs')
+local helpers = require 'personal.luasnip-helper-funcs'
 local get_visual = helpers.get_visual
 
-local line_begin = require("luasnip.extras.expand_conditions").line_begin
+local line_begin = require('luasnip.extras.expand_conditions').line_begin
 
-return
-{
+return {
   -- GENERIC HEADER INCLUDE
-  s({trig = "hh", snippetType="autosnippet"},
-    fmt(
-    [[#include <{}>]],
-    { 
-        d(1, get_visual)
-    }
-    ),
-    {condition = line_begin}
-    ),
+  s(
+    { trig = 'hh', snippetType = 'autosnippet' },
+    fmt([[#include <{}>]], {
+      d(1, get_visual),
+    }),
+    { condition = line_begin }
+  ),
   -- STDIO HEADER
-  s({trig = "hio", snippetType="autosnippet"},
-    { t('#include <iostream>') },
-    {condition = line_begin}
-    ),
+  s({ trig = 'hio', snippetType = 'autosnippet' }, { t '#include <iostream>' }, { condition = line_begin }),
   -- MATH HEADER
-  s({trig = "hmath", snippetType="autosnippet"},
-    { t('#include <cmath>') },
-    {condition = line_begin}
-    ),
+  s({ trig = 'hmath', snippetType = 'autosnippet' }, { t '#include <cmath>' }, { condition = line_begin }),
   -- STRING HEADER
-  s({trig = "hstr", snippetType="autosnippet"},
-    { t('#include <string>') },
-    {condition = line_begin}
-    ),
-   -- Default namespace std;
-   s({trig = "unstd", snippetType="autosnippet"},
-    { t('using namespace std;') },
-    {condition = line_begin}
-    ),
-   -- ifdef
-   s({trig = "ifndef", snippetType="autosnippet"},
-        fmta(
-        [[
+  s({ trig = 'hstr', snippetType = 'autosnippet' }, { t '#include <string>' }, { condition = line_begin }),
+  -- Default namespace std;
+  s({ trig = 'unstd', snippetType = 'autosnippet' }, { t 'using namespace std;' }, { condition = line_begin }),
+  -- ifdef
+  s(
+    { trig = 'ifdef', snippetType = 'autosnippet' },
+    fmta(
+      [[
         #ifdef <>
         <>
         #endif
         ]],
-        { 
-            i(1),
-            i(2),
-        }
-        ),
-        {condition = line_begin}
+      {
+        i(1),
+        i(2),
+      }
     ),
-   -- ifndef
-   s({trig = "ifndef", snippetType="autosnippet"},
-        fmta(
-        [[
+    { condition = line_begin }
+  ),
+  -- ifndef
+  s(
+    { trig = 'ifndef', snippetType = 'autosnippet' },
+    fmta(
+      [[
         #ifndef <>
         <>
         #endif
         ]],
-        { 
-            i(1),
-            i(2),
-        }
-        ),
-        {condition = line_begin}
+      {
+        i(1),
+        i(2),
+      }
     ),
-   -- define
-   s({trig = "dff", snippetType="autosnippet"},
-        fmta(
-        [[
+    { condition = line_begin }
+  ),
+  -- define
+  s(
+    { trig = 'dff', snippetType = 'autosnippet' },
+    fmta(
+      [[
         #define <>
         ]],
-        { 
-            i(1),
-        }
-        ),
-        {condition = line_begin}
+      {
+        i(1),
+      }
     ),
+    { condition = line_begin }
+  ),
 }

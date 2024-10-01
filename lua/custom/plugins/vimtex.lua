@@ -13,7 +13,12 @@ return {
         '-interaction=nonstopmode',
       },
     }
-    
+
+    -- Set the engine for latexmk to XeLaTeX
+    vim.g.vimtex_compiler_latexmk_engines = {
+      ['_'] = '-xelatex', -- Default engine
+    }
+
     -- -- Enable automatic compilation on save
     -- vim.g.vimtex_autocompile = {
     --   callback = 1,
@@ -28,7 +33,7 @@ return {
     -- vim.g.vimtex_mappings_enabled = 0
 
     -- Disable insert mode mappings (in favor of a dedicated snippet engine)
-    -- vim.g.vimtex_imaps_enabled = 0
+    vim.g.vimtex_imaps_enabled = 0
 
     -- Disable syntax conceal
     vim.g.vimtex_syntax_conceal_disable = 0
@@ -58,8 +63,8 @@ return {
 
     -- Enable PDF preview using your favorite PDF viewer
     -- vim.g.vimtex_view_method = 'qpdfview'
-    -- vim.g.vimtex_view_method = 'zathura_simple'
-    vim.g.vimtex_view_general_viewer = 'okular'
-    vim.g.vimtex_view_general_options = '--unique file:@pdf\\#src:@line@tex'
+    vim.g.vimtex_view_method = 'zathura_simple'
+    -- vim.g.vimtex_view_general_viewer = 'okular'
+    -- vim.g.vimtex_view_general_options = '--unique file:@pdf\\#src:@line@tex'
   end,
 }
